@@ -5,3 +5,4 @@ curl -L https://github.com/second-state/vercel-wasm-runtime/releases/download/v0
 curl -L https://github.com/second-state/vercel-wasm-runtime/releases/download/v0.1/libedit.so.2 -o ./libedit.so.2
 curl -L https://github.com/second-state/vercel-wasm-runtime/releases/download/v0.1/libbsd.so.0 -o ./libbsd.so.0
 curl -L https://github.com/second-state/vercel-wasm-runtime/releases/download/v0.1/libstdc++.so.6 -o ./libstdc++.so.6
+curl -L https://github.com/second-state/vercel-wasm-runtime/releases/download/v0.1/libc.so.6 -o ./libc.so.6
