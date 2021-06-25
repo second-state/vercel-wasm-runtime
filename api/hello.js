@@ -1,6 +1,6 @@
 const fs = require('fs')
 const { join } = require('path')
-const { grayscale } = require('./grayscale_lib.js');
+// const { grayscale } = require('./grayscale_lib.js');
 
 module.exports = (req, res) => {
   res.setHeader('content-type', 'text/plain')
