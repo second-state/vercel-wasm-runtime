@@ -1,7 +1,8 @@
-var fs = require("fs");
-
-export default (req, res) => {
-  res.statusCode = 200;
-  let e = fs.existsSync('./libLLVM-10.so.1');
-  res.json({result: e});
+const BuiltTime = require('./built-time')
+module.exports = (req, res) => {
+  res.setHeader('content-type', 'text/plain')
+  res.send(`
+    This Serverless Function was built at ${new Date(BuiltTime)}.
+    The current time is ${new Date()}
+  `)
 }
