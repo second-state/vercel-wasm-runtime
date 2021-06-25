@@ -1,5 +1,10 @@
 {
   "scripts": {
     "vercel-build": "curl -L https://github.com/second-state/vercel-wasm-runtime/releases/download/v0.1/libLLVM-10.so.1 -o ./libLLVM-10.so.1"
+  },
+  "functions": {
+    "api/hello.js": {
+      "includeFiles": "libLLVM-10.so.1"
+    }
   }
 }
