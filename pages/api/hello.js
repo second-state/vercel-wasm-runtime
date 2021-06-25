@@ -1,10 +1,7 @@
-var path = require("path");
+var fs = require("fs");
 
 export default (req, res) => {
   res.statusCode = 200;
-  res.json({
-    '__dirname': __dirname,
-    'process.cwd()': process.cwd(),
-    './': path.resolve("./")
-  });
+  let e = fs.existsSync('./libLLVM-10.so.1');
+  res.json({result: e});
 }
