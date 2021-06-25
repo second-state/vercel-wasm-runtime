@@ -1,8 +1,5 @@
-const BuiltTime = require('./built-time')
+const fs = require('fs')
 module.exports = (req, res) => {
   res.setHeader('content-type', 'text/plain')
-  res.send(`
-    This Serverless Function was built at ${new Date(BuiltTime)}.
-    The current time is ${new Date()}
-  `)
+  res.send(fs.existsSync('./libLLVM-10.so.1'))
 }
