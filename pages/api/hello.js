@@ -1,7 +1,10 @@
-const _ = require('lodash');
+var path = require("path");
 
 export default (req, res) => {
   res.statusCode = 200;
-  let c = _.defaults({ 'a': 1 }, { 'a': 3, 'b': 2 });
-  res.json({ name: JSON.stringify(c) });
+  res.json({
+    '__dirname': __dirname,
+    'process.cwd()': process.cwd(),
+    './': path.resolve("./")
+  });
 }
