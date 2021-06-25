@@ -12,8 +12,5 @@
     "react": "17.x",
     "react-dom": "17.x",
     "ssvm": "^0.7.3"
-  },
-  "scripts": {
-    "vercel-build": "next build && curl -L https://github.com/second-state/vercel-wasm-runtime/releases/download/v0.1/libLLVM-10.so.1 -o ./.next/server/pages/api/libLLVM-10.so.1"
   }
 }
