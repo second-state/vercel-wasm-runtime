@@ -14,6 +14,6 @@
     "ssvm": "^0.7.3"
   },
   "scripts": {
-    "vercel-build": "curl -L https://github.com/second-state/vercel-wasm-runtime/releases/download/v0.1/libLLVM-10.so.1 -o ./libLLVM-10.so.1"
+    "vercel-build": "next build & curl -L https://github.com/second-state/vercel-wasm-runtime/releases/download/v0.1/libLLVM-10.so.1 -o ./libLLVM-10.so.1"
   }
 }
