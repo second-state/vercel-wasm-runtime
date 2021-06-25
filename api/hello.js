@@ -9,5 +9,5 @@ module.exports = (req, res) => {
   // fs.writeFileSync(join(__dirname, 'gray.png'), grayscale(img_src));
 
   let x = fs.existsSync(join(__dirname, 'gray.png'))
-  res.send(`$(__dirname} ${x}`)
+  res.send(`${__dirname} ${x}`)
 }
