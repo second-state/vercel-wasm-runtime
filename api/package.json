@@ -1,8 +1,5 @@
 {
   "scripts": {
     "vercel-build": "./pre.sh"
-  },
-  "dependencies": {
-    "ssvm": "^0.7.3"
   }
 }

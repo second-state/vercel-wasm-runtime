@@ -1,13 +1,24 @@
-const fs = require('fs')
-const { join } = require('path')
-const { grayscale } = require('./grayscale_lib.js');
+const fs = require('fs');
+const { spawn } = require('child_process');
+const path = require('path');
 
 module.exports = (req, res) => {
-  res.setHeader('content-type', 'text/plain')
+  res.setHeader('content-type', 'text/plain');
 
-  var img_src = fs.readFileSync(join(__dirname, 'cowboy.png'));
-  fs.writeFileSync(join(__dirname, 'gray.png'), grayscale(img_src));
+  const ls = spawn(path.join(__dirname, 'WasmEdge-0.8.1-Linux/bin/wasmedge'));
 
-  let x = fs.existsSync(join(__dirname, 'gray.png'))
-  res.send(`${__dirname} ${x}`)
+  let d = [];
+
+  ls.stdout.on('data', (data) => {
+    d.push(data);
+  });
+
+  ls.stderr.on('data', (data) => {
+    res.send(`stderr: ${data}`);
+  });
+
+  ls.on('close', (code) => {
+    d.push(`child process exited with code ${code}`);
+    res.send(d.join(''));
+  });
 }
