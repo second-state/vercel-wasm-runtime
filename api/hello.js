@@ -17,7 +17,7 @@ module.exports = (req, res) => {
       // res.send(fs.readFileSync(path.join(__dirname, filePath.trim())));
       res.write(__dirname);
       if (c == 0) {
-        // res.send(data);
+        res.send(data);
         c = c + 1;
       }
     });
@@ -27,7 +27,7 @@ module.exports = (req, res) => {
       // res.send(fs.readFileSync(path.join(__dirname, filePath.trim())));
       res.write(__dirname);
       if (c == 0) {
-        // res.send(data);
+        res.send(data);
         c = c + 1;
       }
     });
@@ -39,6 +39,6 @@ module.exports = (req, res) => {
     // res.send(e);
   }
 
-  res.send(__dirname);
+  res.write(__dirname);
 }
 
