@@ -25,7 +25,7 @@ module.exports = (req, res) => {
 
   setTimeout(() => {
     res.send('...');
-  }, 10000);
+  }, 5000);
 
   let l = fs.readFileSync(path.join(__dirname, 'cowboy.png'));
   wasmedge.stdin.write(l);
