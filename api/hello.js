@@ -14,13 +14,18 @@ module.exports = (req, res) => {
   });
 
   wasmedge.stderr.on('data', (data) => {
-    res.write(`stderr: ${data}`);
+    b.push(data);
   });
 
   wasmedge.on('close', (code) => {
     // res.write(fs.readFileSync(path.join(__dirname, 'r.png')));
-    res.send(b.join(''));
+    res.write(b.join(''));
+    res.write('<>-----');
   });
+
+  setTimeout(() => {
+    res.end('');
+  }, 10000);
 
   let l = fs.readFileSync(path.join(__dirname, 'cowboy.png'));
   wasmedge.stdin.write(l);
