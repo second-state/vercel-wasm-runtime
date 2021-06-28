@@ -5,7 +5,6 @@ const path = require('path');
 
 module.exports = (req, res) => {
   // res.setHeader('Content-Type', 'application/octet-stream');
-  res.setHeader('Content-Type', 'text/plain');
 
   try {
     const wasmedge = spawn(path.join(__dirname, 'WasmEdge-0.8.1-Linux/bin/wasmedge'), ['--dir', `/:${__dirname}`, path.join(__dirname, 'wasi.wasm')]);
@@ -15,7 +14,6 @@ module.exports = (req, res) => {
     wasmedge.stdout.on('data', (data) => {
       // let filePath = new String(data);
       // res.send(fs.readFileSync(path.join(__dirname, filePath.trim())));
-      res.write(__dirname);
       if (c == 0) {
         res.send(data);
         c = c + 1;
@@ -25,7 +23,6 @@ module.exports = (req, res) => {
     wasmedge.stderr.on('data', (data) => {
       // let filePath = new String(data);
       // res.send(fs.readFileSync(path.join(__dirname, filePath.trim())));
-      res.write(__dirname);
       if (c == 0) {
         res.send(data);
         c = c + 1;
@@ -38,7 +35,5 @@ module.exports = (req, res) => {
   } catch (e) {
     // res.send(e);
   }
-
-  res.write(__dirname);
 }
 
