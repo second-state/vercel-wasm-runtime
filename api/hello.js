@@ -4,13 +4,15 @@ const buffer = require('buffer');
 const path = require('path');
 
 module.exports = (req, res) => {
-  res.setHeader('Content-Type', 'application/octet-stream');
+  // res.setHeader('Content-Type', 'application/octet-stream');
+  res.setHeader('Content-Type', 'text/plain');
 
   const wasmedge = spawn(path.join(__dirname, 'WasmEdge-0.8.1-Linux/bin/wasmedge'), ['--dir', `/:${__dirname}/api`, path.join(__dirname, 'wasi.wasm')]);
 
   wasmedge.stdout.on('data', (data) => {
     // let filePath = new String(data);
     // res.send(fs.readFileSync(path.join(__dirname, filePath.trim())));
+    res.write(__dirname);
     res.send(data);
   });
 
