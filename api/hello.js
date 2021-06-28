@@ -9,8 +9,9 @@ module.exports = (req, res) => {
   const wasmedge = spawn(path.join(__dirname, 'WasmEdge-0.8.1-Linux/bin/wasmedge'), ['--dir', `/:${__dirname}/api`, path.join(__dirname, 'wasi.wasm')]);
 
   wasmedge.stdout.on('data', (data) => {
-    let filePath = new String(data);
-    res.send(fs.readFileSync(path.join(__dirname, filePath.trim())));
+    // let filePath = new String(data);
+    // res.send(fs.readFileSync(path.join(__dirname, filePath.trim())));
+    res.send(data);
   });
 
   let l = fs.readFileSync(path.join(__dirname, 'cowboy.png'));
