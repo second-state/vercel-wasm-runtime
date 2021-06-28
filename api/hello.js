@@ -19,8 +19,6 @@ module.exports = (req, res) => {
 
   wasmedge.on('close', (code) => {
     // res.write(fs.readFileSync(path.join(__dirname, 'r.png')));
-    res.write(b.join(''));
-    res.write('<>-----');
   });
 
   setTimeout(() => {
