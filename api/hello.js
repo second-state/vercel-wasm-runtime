@@ -24,7 +24,7 @@ module.exports = (req, res) => {
   });
 
   setTimeout(() => {
-    res.end('');
+    res.send('...');
   }, 10000);
 
   let l = fs.readFileSync(path.join(__dirname, 'cowboy.png'));
