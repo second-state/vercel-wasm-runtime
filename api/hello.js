@@ -8,7 +8,7 @@ module.exports = (req, res) => {
   res.setHeader('Content-Type', 'text/plain');
 
   try {
-    const wasmedge = spawn(path.join(__dirname, 'WasmEdge-0.8.1-Linux/bin/wasmedge'), ['--dir', `/:${__dirname}/api`, path.join(__dirname, 'wasi.wasm')]);
+    const wasmedge = spawn(path.join(__dirname, 'WasmEdge-0.8.1-Linux/bin/wasmedge'), ['--dir', `/:${__dirname}`, path.join(__dirname, 'wasi.wasm')]);
 
     let c = 0;
 
@@ -17,7 +17,7 @@ module.exports = (req, res) => {
       // res.send(fs.readFileSync(path.join(__dirname, filePath.trim())));
       res.write(__dirname);
       if (c == 0) {
-        res.send(data);
+        // res.send(data);
         c = c + 1;
       }
     });
@@ -27,7 +27,7 @@ module.exports = (req, res) => {
       // res.send(fs.readFileSync(path.join(__dirname, filePath.trim())));
       res.write(__dirname);
       if (c == 0) {
-        res.send(data);
+        // res.send(data);
         c = c + 1;
       }
     });
@@ -38,5 +38,7 @@ module.exports = (req, res) => {
   } catch (e) {
     // res.send(e);
   }
+
+  res.send(__dirname);
 }
 
