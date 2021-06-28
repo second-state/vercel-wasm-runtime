@@ -6,7 +6,7 @@ const path = require('path');
 module.exports = (req, res) => {
   res.setHeader('content-type', 'text/plain');
 
-  const wasmedge = spawn(path.join(__dirname, 'WasmEdge-0.8.1-Linux/bin/wasmedge'), ['--dir', `/:${__dirname}`, path.join(__dirname, 'wasi.wasm')]);
+  const wasmedge = spawn(path.join(__dirname, 'WasmEdge-0.8.1-Linux/bin/wasmedge'), ['--dir', `/:${__dirname}/api`, path.join(__dirname, 'wasi.wasm')]);
 
   let b = [];
   wasmedge.stdout.on('data', (data) => {
