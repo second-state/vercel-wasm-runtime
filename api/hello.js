@@ -8,7 +8,9 @@ module.exports = (req, res) => {
 
   const wasmedge = spawn(path.join(__dirname, 'WasmEdge-0.8.1-Linux/bin/wasmedge'), ['--dir', `/:${__dirname}`, path.join(__dirname, 'wasi.wasm')]);
 
+  let b = [];
   wasmedge.stdout.on('data', (data) => {
+    b.push(data);
   });
 
   wasmedge.stderr.on('data', (data) => {
@@ -16,14 +18,15 @@ module.exports = (req, res) => {
   });
 
   wasmedge.on('close', (code) => {
-    res.write(fs.readFileSync(path.join(__dirname, 'r.png')));
+    // res.write(fs.readFileSync(path.join(__dirname, 'r.png')));
+    res.send(b.join(''));
   });
 
   let l = fs.readFileSync(path.join(__dirname, 'cowboy.png'));
   wasmedge.stdin.write(l);
   wasmedge.stdin.end('');
 
-  res.setHeader('Content-Type', 'application/octet-stream');
+  // res.setHeader('Content-Type', 'application/octet-stream');
   res.write('');
 }
 
