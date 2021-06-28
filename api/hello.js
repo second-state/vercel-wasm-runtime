@@ -1,31 +1,31 @@
 const fs = require('fs');
 const { spawn } = require('child_process');
+const buffer = require('buffer');
 const path = require('path');
 
 module.exports = (req, res) => {
   res.setHeader('content-type', 'text/plain');
 
-  const wasmedge = spawn(path.join(__dirname, 'WasmEdge-0.8.1-Linux/bin/wasmedge'), [path.join(__dirname, 'wasi.wasm')]);
-
-  let d = [];
+  const wasmedge = spawn(path.join(__dirname, 'WasmEdge-0.8.1-Linux/bin/wasmedge'), ['--dir', `/:${__dirname}`, path.join(__dirname, 'wasi.wasm')]);
 
   wasmedge.stdout.on('data', (data) => {
-    d.push(data);
+    let filePath = new String(data);
+    res.write(fs.readFileSync(path.join(__dirname, filePath.trim())));
   });
 
   wasmedge.stderr.on('data', (data) => {
-    res.end(`stderr: ${data}`);
+    res.write(`stderr: ${data}`);
   });
 
   wasmedge.on('close', (code) => {
-    d.push(`child process exited with code ${code}`);
-    res.end(d.join(''));
+    res.end('');
   });
 
   let l = fs.readFileSync(path.join(__dirname, 'cowboy.png'));
   wasmedge.stdin.write(l);
   wasmedge.stdin.end('');
 
+  res.setHeader('Content-Type', 'application/octet-stream');
   res.write('');
 }
 

@@ -34,3 +34,6 @@ yarn-error.log*
 .vercel
 
 *.swp
+
+api/target
+api/pkg
