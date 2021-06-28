@@ -27,6 +27,5 @@ module.exports = (req, res) => {
   wasmedge.stdin.end('');
 
   // res.setHeader('Content-Type', 'application/octet-stream');
-  res.write('');
 }
 
