@@ -10,14 +10,16 @@ fn main() {
   let img = image::load_from_memory(&buf).unwrap();
   let filtered = img.grayscale();
   let mut buf = vec![];
-  match image_format_detected {
+  let format = match image_format_detected {
     ImageFormat::Gif => {
         filtered.write_to(&mut buf, ImageOutputFormat::Gif).unwrap();
+        "gif"
     },
     _ => {
         filtered.write_to(&mut buf, ImageOutputFormat::Png).unwrap();
+        "png"
     },
-  }
-  print!("{}", hex::encode(&buf));
+  };
+  print!("{}{}", format, hex::encode(&buf));
 }
 

@@ -3,20 +3,19 @@ const { spawn } = require('child_process');
 const path = require('path');
 
 module.exports = (req, res) => {
-  res.setHeader('Content-Type', 'application/octet-stream');
-
   const wasmedge = spawn(path.join(__dirname, 'WasmEdge-0.8.1-Linux/bin/wasmedge'), [path.join(__dirname, 'wasi.wasm')]);
 
-  let b = [];
+  let d = [];
   wasmedge.stdout.on('data', (data) => {
-    b.push(data);
-  });
-
-  wasmedge.stderr.on('data', (data) => {
+    d.push(data);
   });
 
   wasmedge.on('close', (code) => {
-    let buf = Buffer.from(b.join(''), 'hex');
+    let r = d.join('');
+    let format = r.substring(0, 3);
+    let buf = Buffer.from(r.substring(3), 'hex');
+
+    res.setHeader('Content-Type', `image/${format}`);
     res.send(buf);
   });
 
