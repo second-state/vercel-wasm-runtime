@@ -1,5 +1,5 @@
-use std::fs::File;
-use std::io::{self, Write, Read};
+use hex;
+use std::io::{self, Read};
 use image::{ImageOutputFormat, ImageFormat};
 
 fn main() {
@@ -10,18 +10,14 @@ fn main() {
   let img = image::load_from_memory(&buf).unwrap();
   let filtered = img.grayscale();
   let mut buf = vec![];
-  let out_path = match image_format_detected {
+  match image_format_detected {
     ImageFormat::Gif => {
         filtered.write_to(&mut buf, ImageOutputFormat::Gif).unwrap();
-        "/r.gif"
     },
     _ => {
         filtered.write_to(&mut buf, ImageOutputFormat::Png).unwrap();
-        "/r.png"
     },
-  };
-  let mut output = File::create(out_path).unwrap();
-  output.write_all(&buf).unwrap();
-  println!("{}", out_path);
+  }
+  print!("{}", hex::encode(&buf));
 }
 

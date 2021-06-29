@@ -9,5 +9,6 @@ name = "wasi_image_grayscale"
 path = "src/main.rs"
 
 [dependencies]
+hex = "0.4"
 image = { version = "0.23.0", default-features = false, features = ["jpeg", "png", "gif"] }
 
