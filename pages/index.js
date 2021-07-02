@@ -1,52 +1,39 @@
+import React, { useState } from 'react';
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+  const [enableWasm, setEnableWasm] = useState(false);
+  const [origImg, setOrigImg] = useState(null);
+  const [resImg, setResImg] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Vercel Wasm Runtime</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <a href="https://github.com/WasmEdge/WasmEdge">WasmEdge!</a>
         </h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <div className={styles.operating}>
+          <div>
+            <input type="file" id="fileElem" accept="image/png" className={styles['visually-hidden']} onChange={fileSelected} />
+            <label htmlFor="fileElem" className={styles.noselect}>Select an image</label>
+            <div className={styles.thumb}>
+              {origImg && <img src={origImg.src} />}
+            </div>
+          </div>
+          <div>
+            <button id="runBtn" onClick={runWasm} disabled={!enableWasm || loading}>{loading ? 'Loading' : 'Run Wasm'}</button>
+            <div className={styles.thumb}>
+              {resImg && <img src={resImg.src} />}
+            </div>
+          </div>
         </div>
       </main>
 
@@ -61,5 +48,53 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  )
+  );
+
+  function fileSelected(e) {
+    const file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+
+    if (!file.type.startsWith('image/png')) {
+      alert('Please select a png image.');
+      return;
+    }
+
+    const img = document.createElement('img');
+    img.file = file
+
+    const reader = new FileReader();
+    reader.onload = (function(aImg) {
+      return function(e) {
+        aImg.src = e.target.result;
+        setOrigImg(aImg);
+        setEnableWasm(true);
+      };
+    })(img);
+    reader.readAsDataURL(file);
+  }
+
+  function runWasm(e) {
+    const img = document.createElement('img');
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      setLoading(true);
+      var oReq = new XMLHttpRequest();
+      oReq.open("POST", '/api/hello', true);
+      oReq.responseType = 'blob';
+      oReq.onload = (function(bImg) {
+        return function (oEvent) {
+          setLoading(false);
+          bImg.src = URL.createObjectURL(oReq.response);
+          setResImg(bImg);
+          URL.revokeObjectURL(oReq.response);
+        };
+      })(img);
+      const blob = new Blob([e.target.result], {type: 'application/octet-stream'});
+      oReq.send(blob);
+    };
+    reader.readAsArrayBuffer(origImg.file);
+  }
 }
