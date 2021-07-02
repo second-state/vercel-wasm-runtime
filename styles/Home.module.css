@@ -14,6 +14,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .footer {
@@ -99,7 +100,14 @@ input.visually-hidden:focus-within + label {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-end;
+  margin-right: 2rem;
+  
+}
+
+.operating > div:last-child {
+  align-items: flex-start;
+  margin-left: 2rem;
 }
 
 .operating button {
