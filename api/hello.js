@@ -15,9 +15,13 @@ module.exports = (req, res) => {
     let format = r.substring(0, 3);
     let buf = Buffer.from(r.substring(3), 'hex');
 
-    res.setHeader('Content-Type', `image/${format}`);
-    res.send(buf);
+    // res.setHeader('Content-Type', `image/${format}`);
+    // res.send(buf);
   });
+
+  console.log(typeof req.body);
+  console.log(req.body.length);
+  res.send(`${typeof req.body} ${req.body.length}`);
 
   let l = fs.readFileSync(path.join(__dirname, 'cowboy.png'));
   wasmedge.stdin.write(l);
