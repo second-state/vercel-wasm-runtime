@@ -22,17 +22,13 @@ export default function Home() {
 
         <div className={styles.operating}>
           <div>
-            <input type="file" id="fileElem" accept="image/png" className={styles['visually-hidden']} onChange={fileSelected} />
-            <label htmlFor="fileElem" className={styles.noselect}>Select an photo<br>that includes food</label>
-            <div className={styles.thumb}>
-              {origImg && <img src={origImg.src} />}
-            </div>
-          </div>
-          <div>
+            <input type="file" id="fileElem" accept="image/jpeg" className={styles['visually-hidden']} onChange={fileSelected} />
+            <label htmlFor="fileElem" className={styles.noselect}>Select a photo that includes food</label>
             <button id="runBtn" onClick={runWasm} disabled={!enableWasm || loading}>{loading ? 'Loading' : 'Run Wasm'}</button>
-            <div className={styles.thumb}>
-              {res}
-            </div>
+          </div>
+          <div className={styles['infer']} dangerouslySetInnerHTML={{__html: res}} />
+          <div className={styles.thumb}>
+            {origImg && <img src={origImg.src} />}
           </div>
         </div>
       </main>
@@ -56,8 +52,8 @@ export default function Home() {
       return;
     }
 
-    if (!file.type.startsWith('image/png')) {
-      alert('Please select a png image.');
+    if (!file.type.startsWith('image/jpeg')) {
+      alert('Please select a jpeg image.');
       return;
     }
 
