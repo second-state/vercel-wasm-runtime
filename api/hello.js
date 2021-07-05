@@ -3,7 +3,11 @@ const { spawn } = require('child_process');
 const path = require('path');
 
 module.exports = (req, res) => {
-  const wasmedge = spawn(path.join(__dirname, 'WasmEdge-0.8.1-Linux/bin/wasmedge'), [path.join(__dirname, 'wasi.so')]);
+  const wasmedge = spawn(
+    path.join(__dirname, 'wasmedge-tensorflow-lite'),
+    [path.join(__dirname, 'wasi.so')],
+    {env: {'LD_LIBRARY_PATH': __dirname}}
+  );
 
   let d = [];
   wasmedge.stdout.on('data', (data) => {
@@ -11,12 +15,8 @@ module.exports = (req, res) => {
   });
 
   wasmedge.on('close', (code) => {
-    let r = d.join('');
-    let format = r.substring(0, 3);
-    let buf = Buffer.from(r.substring(3), 'hex');
-
-    res.setHeader('Content-Type', `image/${format}`);
-    res.send(buf);
+    res.setHeader('Content-Type', `text/plain`);
+    res.send(d.join(''));
   });
 
   wasmedge.stdin.write(req.body);

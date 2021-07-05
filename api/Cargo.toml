@@ -5,10 +5,9 @@ authors = ["ubuntu"]
 edition = "2018"
 
 [[bin]]
-name = "wasi_image_grayscale"
+name = "wasi_food_classify"
 path = "src/main.rs"
 
 [dependencies]
-hex = "0.4"
-image = { version = "0.23.0", default-features = false, features = ["jpeg", "png", "gif"] }
+wasmedge_tensorflow_interface = "^0.2.0"
 

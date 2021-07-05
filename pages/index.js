@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css'
 export default function Home() {
   const [enableWasm, setEnableWasm] = useState(false);
   const [origImg, setOrigImg] = useState(null);
-  const [resImg, setResImg] = useState(null);
+  const [res, setRes] = useState(null);
   const [loading, setLoading] = useState(false);
 
   return (
@@ -23,7 +23,7 @@ export default function Home() {
         <div className={styles.operating}>
           <div>
             <input type="file" id="fileElem" accept="image/png" className={styles['visually-hidden']} onChange={fileSelected} />
-            <label htmlFor="fileElem" className={styles.noselect}>Select an image</label>
+            <label htmlFor="fileElem" className={styles.noselect}>Select an photo<br>that includes food</label>
             <div className={styles.thumb}>
               {origImg && <img src={origImg.src} />}
             </div>
@@ -31,7 +31,7 @@ export default function Home() {
           <div>
             <button id="runBtn" onClick={runWasm} disabled={!enableWasm || loading}>{loading ? 'Loading' : 'Run Wasm'}</button>
             <div className={styles.thumb}>
-              {resImg && <img src={resImg.src} />}
+              {res}
             </div>
           </div>
         </div>
@@ -76,22 +76,15 @@ export default function Home() {
   }
 
   function runWasm(e) {
-    const img = document.createElement('img');
-
     const reader = new FileReader();
     reader.onload = function(e) {
       setLoading(true);
       var oReq = new XMLHttpRequest();
       oReq.open("POST", '/api/hello', true);
-      oReq.responseType = 'blob';
-      oReq.onload = (function(bImg) {
-        return function (oEvent) {
+      oReq.onload = function() {
           setLoading(false);
-          bImg.src = URL.createObjectURL(oReq.response);
-          setResImg(bImg);
-          URL.revokeObjectURL(oReq.response);
-        };
-      })(img);
+          setRes(oReq.response);
+      };
       const blob = new Blob([e.target.result], {type: 'application/octet-stream'});
       oReq.send(blob);
     };
