@@ -8,7 +8,7 @@ The Serverless Functions endpoint is located at `api/hello.js` to meet the requi
 
 The only function in `api/hello.js` is grayscaling an image. It receives a png file and pass it as stdin stream to a spawned child process. The child process runs using the [WasmEdge](https://github.com/WasmEdge/WasmEdge) command.
 
-File `api/src/main.rs` implements the grayscaling logic. By buiding it with [rustwasmc](https://github.com/second-state/rustwasmc) we get `api/wasi.wasm`. Then the wasm file is compiled to `api/wasi.so` by [wasmedgec](https://github.com/WasmEdge/WasmEdge/releases/tag/0.8.1) to make the child process running faster.
+File `api/src/main.rs` implements the grayscaling logic. By buiding it with [rustwasmc](https://github.com/second-state/rustwasmc) with `--enable-aot` option we get `wasi_image_grayscale.so`.
 
 We define [Custom Build](https://vercel.com/docs/runtimes?query=vercel-build#advanced-usage/advanced-node-js-usage/custom-build-step-for-node-js) in `api/pre.sh` to download the [WasmEdge command](https://github.com/WasmEdge/WasmEdge/releases/tag/0.8.1). 
 
