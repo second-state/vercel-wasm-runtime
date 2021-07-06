@@ -66,6 +66,7 @@ export default function Home() {
         aImg.src = e.target.result;
         setOrigImg(aImg);
         setEnableWasm(true);
+        setRes('');
       };
     })(img);
     reader.readAsDataURL(file);
