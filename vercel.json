@@ -1,8 +1,7 @@
 {
   "functions": {
     "api/hello.js": {
-      "includeFiles": "**",
-      "excludeFiles": "functions/**,.git/**"
+      "includeFiles": "api/**"
     }
   }
 }
