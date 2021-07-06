@@ -6,11 +6,11 @@ This project is aimed to demonstrate how to implement a Serverless Functions wor
 
 The Serverless Functions endpoint is located at `api/hello.js` to meet the requirement of Vercel, but not to the Next.js. So if you want to develop on you local machine, you should put it into `pages/api/` and make some change.
 
-The only function in `api/hello.js` is grayscaling an image. It receives a png file and pass it as stdin stream to a spawned child process. The child process runs using the [WasmEdge](https://github.com/WasmEdge/WasmEdge) command.
+The only function in `api/hello.js` is classifying the object in a photo. It receives a jpg file and pass it as stdin stream to a spawned child process. The child process runs using the [wasmedge-tensorflow-lite](https://github.com/second-state/WasmEdge-tensorflow-tools) command.
 
-File `api/src/main.rs` implements the grayscaling logic. By buiding it with [rustwasmc](https://github.com/second-state/rustwasmc) we get `api/wasi.wasm`. Then the wasm file is compiled to `api/wasi.so` by [wasmedgec](https://github.com/WasmEdge/WasmEdge/releases/tag/0.8.1) to make the child process running faster.
+File `functions/image-classification/src/main.rs` implements the classifying logic. By buiding it with [rustwasmc](https://github.com/second-state/rustwasmc) with `--enable-aot` option we get `classify.so`.
 
-We define [Custom Build](https://vercel.com/docs/runtimes?query=vercel-build#advanced-usage/advanced-node-js-usage/custom-build-step-for-node-js) in `api/pre.sh` to download the [WasmEdge command](https://github.com/WasmEdge/WasmEdge/releases/tag/0.8.1). 
+We define [Custom Build](https://vercel.com/docs/runtimes?query=vercel-build#advanced-usage/advanced-node-js-usage/custom-build-step-for-node-js) in `api/pre.sh` to download the [wasmedge-tensorflow-lite command and dependent lib](https://github.com/second-state/WasmEdge-tensorflow-tools#run-wasmedge-tensorflow-tools). 
 
 ![](/vercel-wasmedge-runtime.gif)
 
