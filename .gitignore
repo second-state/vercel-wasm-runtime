@@ -35,6 +35,6 @@ yarn-error.log*
 
 *.swp
 
-api/target
-api/pkg
+**/target
+**/pkg
 pages/api
