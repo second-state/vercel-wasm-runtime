@@ -5,7 +5,7 @@ const path = require('path');
 module.exports = (req, res) => {
   const wasmedge = spawn(
     path.join(__dirname, 'wasmedge-tensorflow-lite'),
-    [path.join(__dirname, 'wasi.so')],
+    [path.join(__dirname, 'classify.so')],
     {env: {'LD_LIBRARY_PATH': __dirname}}
   );
 
