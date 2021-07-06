@@ -24,7 +24,7 @@ export default function Home() {
           <div>
             <input type="file" id="fileElem" accept="image/jpeg" className={styles['visually-hidden']} onChange={fileSelected} />
             <label htmlFor="fileElem" className={styles.noselect}>Select a photo</label>
-            <button id="runBtn" onClick={runWasm} disabled={!enableWasm || loading}>{loading ? 'Loading' : 'Run Wasm'}</button>
+            <button id="runBtn" onClick={runWasm} disabled={!enableWasm || loading}>{loading ? 'Loading' : 'Classify with Wasm'}</button>
           </div>
           <div className={styles['infer']} dangerouslySetInnerHTML={{__html: res}} />
           <div className={styles.thumb}>
