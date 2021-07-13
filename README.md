@@ -10,7 +10,7 @@ The only function in `api/hello.js` is classifying the object in a photo. It rec
 
 File `functions/image-classification/src/main.rs` implements the classifying logic. By buiding it with [rustwasmc](https://github.com/second-state/rustwasmc) with `--enable-aot` option we get `classify.so`.
 
-We define [Custom Build](https://vercel.com/docs/runtimes?query=vercel-build#advanced-usage/advanced-node-js-usage/custom-build-step-for-node-js) in `api/pre.sh` to download the [wasmedge-tensorflow-lite command and dependent lib](https://github.com/second-state/WasmEdge-tensorflow-tools#run-wasmedge-tensorflow-tools). 
+We define [Custom Build](https://vercel.com/docs/runtimes?query=vercel-build#advanced-usage/advanced-node-js-usage/custom-build-step-for-node-js) in `api/pre.sh` to download the [wasmedge-tensorflow-lite command and dependent lib](https://github.com/second-state/WasmEdge-tensorflow-tools#run-wasmedge-tensorflow-tools).
 
 ![](/vercel-wasmedge-runtime.gif)
 
