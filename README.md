@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-This project is aimed to demonstrate how to implement a Serverless Functions working with Webassembly in Vercel.
+This project is aimed to demonstrate how to implement a Serverless Functions working with Webassembly in Vercel. The [main branch](https://github.com/second-state/vercel-wasm-runtime/tree/main) showcases an image processing function, and the [tensorflow branch](https://github.com/second-state/vercel-wasm-runtime/tree/tensorflow) showcases an AI inference function. Both written in simple Rust and runs in the [WasmEdge runtime](https://github.com/WasmEdge/WasmEdge) for WebAssembly.
 
 ## Overview
 
@@ -8,7 +8,7 @@ The Serverless Functions endpoint is located at `api/hello.js` to meet the requi
 
 The only function in `api/hello.js` is grayscaling an image. It receives a png file and pass it as stdin stream to a spawned child process. The child process runs using the [WasmEdge](https://github.com/WasmEdge/WasmEdge) command.
 
-File `api/src/main.rs` implements the grayscaling logic. By buiding it with [rustwasmc](https://github.com/second-state/rustwasmc) with `--enable-aot` option we get `wasi_image_grayscale.so`.
+File `api/functions/image-grayscale/src/main.rs` implements the grayscaling logic. You can build it with the Rust `cargo` command with the `-target wasm32-wasi` option to get the `grayscale.wasm` file.
 
 We define [Custom Build](https://vercel.com/docs/runtimes?query=vercel-build#advanced-usage/advanced-node-js-usage/custom-build-step-for-node-js) in `api/pre.sh` to download the [WasmEdge command](https://github.com/WasmEdge/WasmEdge/releases/tag/0.8.1). 
 
