@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # get wasmedge & wasmedgec
-curl -sSfL https://github.com/WasmEdge/WasmEdge/releases/download/0.8.2-rc.1/WasmEdge-0.8.2-rc.1-manylinux2014_x86_64.tar.gz -o ./WasmEdge.tar.gz
-tar --strip-components 2 -xzvf WasmEdge.tar.gz WasmEdge-0.8.2-rc.1-Linux/bin
+curl -sSfL https://github.com/WasmEdge/WasmEdge/releases/download/0.8.2-rc.2/WasmEdge-0.8.2-rc.2-manylinux2014_x86_64.tar.gz -o ./WasmEdge.tar.gz
+tar --strip-components 2 -xzvf WasmEdge.tar.gz WasmEdge-0.8.2-rc.2-Linux/bin
 rm WasmEdge.tar.gz
 
 # compile all .wasm to .so
