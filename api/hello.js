@@ -11,9 +11,9 @@ module.exports = (req, res) => {
   });
 
   wasmedge.on('close', (code) => {
-    let r = d.join('');
-    let format = r.substring(0, 3);
-    let buf = Buffer.from(r.substring(3), 'hex');
+    let r = Buffer.concat(d);
+    let format = r.subarray(0, 3).toString();
+    let buf = r.subarray(3);
 
     res.setHeader('Content-Type', `image/${format}`);
     res.send(buf);

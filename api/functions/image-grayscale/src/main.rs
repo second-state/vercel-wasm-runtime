@@ -1,5 +1,4 @@
-use hex;
-use std::io::{self, Read};
+use std::io::{self, Read, Write};
 use image::{ImageOutputFormat, ImageFormat};
 
 fn main() {
@@ -20,6 +19,7 @@ fn main() {
         "png"
     },
   };
-  print!("{}{}", format, hex::encode(&buf));
+  io::stdout().write_all(format.as_bytes()).unwrap();
+  io::stdout().write_all(&buf).unwrap();
 }
 
