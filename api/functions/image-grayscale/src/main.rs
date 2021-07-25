@@ -21,5 +21,6 @@ fn main() {
   };
   io::stdout().write_all(format.as_bytes()).unwrap();
   io::stdout().write_all(&buf).unwrap();
+  io::stdout().flush().unwrap();
 }
 
