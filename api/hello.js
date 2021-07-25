@@ -11,11 +11,9 @@ module.exports = (req, res) => {
   });
 
   wasmedge.on('close', (code) => {
-    let r = Buffer.concat(d);
-    let format = r.subarray(0, 3).toString();
-    let buf = r.subarray(3);
+    let buf = Buffer.concat(d);
 
-    res.setHeader('Content-Type', `image/${format}`);
+    res.setHeader('Content-Type', req.headers['image-type']);
     res.send(buf);
   });
 

@@ -83,6 +83,7 @@ export default function Home() {
       setLoading(true);
       var oReq = new XMLHttpRequest();
       oReq.open("POST", '/api/hello', true);
+      oReq.setRequestHeader('image-type', origImg.file.type);
       oReq.responseType = 'blob';
       oReq.onload = (function(bImg) {
         return function (oEvent) {
