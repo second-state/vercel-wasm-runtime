@@ -17,6 +17,8 @@ We define [Custom Build](https://vercel.com/docs/runtimes?query=vercel-build#adv
 
 ## Learn More
 
+A code walk-through for this template project is available in [this tutorial on the TNS](https://thenewstack.io/rust-and-webassembly-serverless-functions-in-vercel/).
+
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
