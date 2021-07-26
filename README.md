@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). A code walk-through is available in [this tutorial on the TNS](https://thenewstack.io/rust-and-webassembly-serverless-functions-in-vercel/).
 
 This project is aimed to demonstrate how to implement a Serverless Functions working with Webassembly in Vercel. The [main branch](https://github.com/second-state/vercel-wasm-runtime/tree/main) showcases an image processing function, and the [tensorflow branch](https://github.com/second-state/vercel-wasm-runtime/tree/tensorflow) showcases an AI inference function. Both written in simple Rust and runs in the [WasmEdge runtime](https://github.com/WasmEdge/WasmEdge) for WebAssembly.
 
