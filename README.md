@@ -8,7 +8,13 @@ The Serverless Functions endpoint is located at `api/hello.js` to meet the requi
 
 The only function in `api/hello.js` is classifying the object in a photo. It receives a jpg file and pass it as stdin stream to a spawned child process. The child process runs using the [wasmedge-tensorflow-lite](https://github.com/second-state/WasmEdge-tensorflow-tools) command.
 
-File `api/functions/image-classification/src/main.rs` implements the tensorflow-based image recognition logic. You can build it with the Rust `cargo` command with the `-target wasm32-wasi` option to get the `classify.wasm` file.
+File `api/functions/image-classification/src/main.rs` implements the tensorflow-based image recognition logic. You can build it with the Rust `cargo` command with the `-target wasm32-wasi`:
+
+```bash 
+rustup target add wasm32-wasi
+cargo build --target wasm32-wasi
+# will generate ./target/wasm32-wasi/debug/classify.wasm
+``` 
 
 We define [Custom Build](https://vercel.com/docs/runtimes?query=vercel-build#advanced-usage/advanced-node-js-usage/custom-build-step-for-node-js) in `api/pre.sh` to download the [wasmedge-tensorflow-lite command and dependent lib](https://github.com/second-state/WasmEdge-tensorflow-tools#run-wasmedge-tensorflow-tools).
 
