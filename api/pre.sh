@@ -9,7 +9,7 @@ rm WasmEdge.tar.gz
 for file in *.wasm; do
     [ -f "$file" ] || continue
     ./wasmedgec --generic-binary "$file" "${file/.wasm/.so}"
-    rm "$file"
+    # rm "$file"
 done
 
 # clean
