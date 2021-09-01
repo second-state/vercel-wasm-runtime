@@ -5,6 +5,8 @@ const path = require('path');
 module.exports = (req, res) => {
   const wasmedge = spawn(path.join(__dirname, 'wasmedge'), [path.join(__dirname, 'grayscale.so')]);
 
+  console.log(req.query.hello);
+
   let d = [];
   wasmedge.stdout.on('data', (data) => {
     d.push(data);
