@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/[hello].js": {
+    "api/[funcId].js": {
       "includeFiles": "api/**",
       "excludeFiles": "api/functions/**"
     }
