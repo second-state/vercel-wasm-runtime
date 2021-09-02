@@ -1,5 +1,9 @@
 {
   "scripts": {
     "vercel-build": "./pre.sh"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "random-words": "^1.1.1"
   }
 }
